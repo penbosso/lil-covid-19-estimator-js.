@@ -12,7 +12,12 @@ dotenv.config({ path: '.env' });
 const app = express();
 // use response time
 app.use(responseTime((req, res, time) => {
-  ResopnseLog({ url: req.url, time }).save();
+  ResopnseLog({
+    url: req.url,
+    time,
+    method: req.method,
+    statusCode: res.statusCode
+  }).save();
 }));
 
 mongoose.Promise = global.Promise;

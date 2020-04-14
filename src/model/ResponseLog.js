@@ -6,7 +6,9 @@ const { Schema } = mongoose;
 const ResponseLogSchema = new Schema(
   {
     url: { type: String, required: true, max: 150 },
-    time: { type: String, max: 55, required: true }
+    time: { type: String, max: 50, required: true },
+    method: { type: String, max: 50, required: true },
+    statusCode: { type: String, max: 50, required: true }
   }, { timestamps: true }
 );
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 /* eslint-disable linebreak-style */
 /* eslint-disable max-len */
 
@@ -35,8 +36,8 @@ const getExtimates = (data) => {
   newData.impact.casesForVentilatorsByRequestedTime = Math.floor(newData.impact.infectionsByRequestedTime * 0.02);
   newData.severeImpact.casesForVentilatorsByRequestedTime = Math.floor(newData.severeImpact.infectionsByRequestedTime * 0.02);
 
-  newData.impact.dollarsInFlight = Math.floor(newData.impact.infectionsByRequestedTime * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation * timeToElapse);
-  newData.severeImpact.dollarsInFlight = Math.floor(newData.severeImpact.infectionsByRequestedTime * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation * timeToElapse);
+  newData.impact.dollarsInFlight = Math.floor((newData.impact.infectionsByRequestedTime * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD) / timeToElapse);
+  newData.severeImpact.dollarsInFlight = Math.floor((newData.severeImpact.infectionsByRequestedTime * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD) / timeToElapse);
 
   return newData;
 };
