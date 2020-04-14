@@ -1,6 +1,60 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-console */
+/* eslint-disable linebreak-style */
+/* eslint-disable no-use-before-define */
 /* eslint-disable max-len */
-// Challenge 1
+
+const ResopnseLog = require('../model/ResponseLog');
+
+exports.estimatorJsonV1 = (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: 'course content can not be empty'
+    });
+  }
+  const result = getExtimates(req.body);
+
+  if (missingEssentialAttr(req.body)) {
+    res.status(400).send({
+      message: 'An importanat filled is missing in the data.'
+    });
+  }
+  return res.status(200).json(result);
+};
+exports.estimatorXmlV1 = (req, res) => {
+  const result = getExtimates(req.body);
+
+  if (missingEssentialAttr(req.body)) {
+    res.status(400).send({
+      message: 'An importanat filled is missing in the data.'
+    });
+  }
+  return res.header('Content-Type', 'text/xml').send(result);
+};
+
+exports.estimatorLogsV1 = async (req, res) => {
+  let textData = '';
+  const logs = await ResopnseLog.find({});
+
+  logs.forEach((log) => {
+    textData += `${log.createdAt} \t\t ${log.url} \t\t Done in ${log.time} ms \n`;
+  });
+
+  res.header('Content-Type', 'text/plain').send(textData);
+};
+
+const missingEssentialAttr = (data) => {
+  if (!data.region.avgDailyIncomeInUSD
+    || !data.region.avgDailyIncomePopulation
+    || !data.periodType
+    || !data.timeToElapse
+    || !data.reportedCases
+    || !data.population
+    || !data.totalHospitalBeds) {
+    return true;
+  }
+  return false;
+};
 
 const getExtimates = (data) => {
   const newData = {};
@@ -30,8 +84,3 @@ const getExtimates = (data) => {
 
   return newData;
 };
-
-const covid19ImpactEstimator = (data) => getExtimates(data);
-
-
-export default covid19ImpactEstimator;
