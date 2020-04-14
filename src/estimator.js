@@ -3,11 +3,19 @@
 
 const getExtimates = (data) => {
   const newData = {};
+  let { timeToElapse } = data;
   newData.data = data;
   newData.impact = {};
   newData.severeImpact = {};
+  if (data.periodType === 'weeks') {
+    timeToElapse = data.timeToElapse * 7;
+  } else if (data.periodTypeType === 'months') {
+    timeToElapse = data.timeToElapse * 30;
+  } else if (data.periodTypeType === 'years') {
+    timeToElapse = data.timeToElapse * 365;
+  }
   // Challenge 1
-  const infectionFactor = Math.floor(data.timeToElapse / 3);
+  const infectionFactor = Math.floor(timeToElapse / 3);
   newData.impact.currentlyInfected = data.reportedCases * 10;
   newData.severeImpact.currentlyInfected = data.reportedCases * 50;
   newData.impact.infectionsByRequestedTime = newData.impact.currentlyInfected * 2 ** infectionFactor;
@@ -27,8 +35,8 @@ const getExtimates = (data) => {
   newData.impact.casesForVentilatorsByRequestedTime = Math.floor(newData.impact.infectionsByRequestedTime * 0.02);
   newData.severeImpact.casesForVentilatorsByRequestedTime = Math.floor(newData.severeImpact.infectionsByRequestedTime * 0.02);
 
-  newData.impact.dollarsInFlight = Math.floor(newData.impact.infectionsByRequestedTime * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation * data.timeToElapse);
-  newData.severeImpact.dollarsInFlight = Math.floor(newData.severeImpact.infectionsByRequestedTime * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation * data.timeToElapse);
+  newData.impact.dollarsInFlight = Math.floor(newData.impact.infectionsByRequestedTime * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation * timeToElapse);
+  newData.severeImpact.dollarsInFlight = Math.floor(newData.severeImpact.infectionsByRequestedTime * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation * timeToElapse);
 
   return newData;
 };
