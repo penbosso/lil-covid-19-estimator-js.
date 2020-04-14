@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-mixed-operators */
 /* eslint-disable linebreak-style */
 /* eslint-disable max-len */

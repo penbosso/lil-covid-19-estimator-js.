@@ -69,7 +69,6 @@ const getExtimates = (data) => {
   } else if (data.periodType === 'years') {
     timeToElapse = data.timeToElapse * 365;
   }
-  console.log(timeToElapse , '**********************');
   // Challenge 1
   const infectionFactor = Math.floor(timeToElapse / 3);
   newData.impact.currentlyInfected = data.reportedCases * 10;
