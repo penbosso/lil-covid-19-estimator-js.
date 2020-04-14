@@ -1,24 +1,26 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable max-len */
-// Challenge 1
 
 const getExtimates = (data) => {
   const newData = {};
   newData.data = data;
   newData.impact = {};
   newData.severeImpact = {};
+  // Challenge 1
   const infectionFactor = Math.floor(data.timeToElapse / 3);
   newData.impact.currentlyInfected = data.reportedCases * 10;
   newData.severeImpact.currentlyInfected = data.reportedCases * 50;
   newData.impact.infectionsByRequestedTime = newData.impact.currentlyInfected * 2 ** infectionFactor;
   newData.severeImpact.infectionsByRequestedTime = newData.severeImpact.currentlyInfected * 2 ** infectionFactor;
 
+  // Challenge 2
   newData.impact.severeCasesByRequestedTime = Math.floor(newData.impact.infectionsByRequestedTime * 0.15);
   newData.severeImpact.severeCasesByRequestedTime = Math.floor(newData.severeImpact.infectionsByRequestedTime * 0.15);
 
   newData.impact.hospitalBedsByRequestedTime = Math.floor(0.35 * data.totalHospitalBeds) - newData.impact.severeCasesByRequestedTime;
   newData.severeImpact.hospitalBedsByRequestedTime = Math.floor(0.35 * data.totalHospitalBeds) - newData.severeImpact.severeCasesByRequestedTime;
 
+  // Challenge 3
   newData.impact.casesForICUByRequestedTime = Math.floor(newData.impact.infectionsByRequestedTime * 0.05);
   newData.severeImpact.casesForICUByRequestedTime = Math.floor(newData.severeImpact.infectionsByRequestedTime * 0.05);
 
@@ -30,6 +32,7 @@ const getExtimates = (data) => {
 
   return newData;
 };
+
 
 const covid19ImpactEstimator = (data) => getExtimates(data);
 

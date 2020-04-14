@@ -12,7 +12,6 @@ dotenv.config({ path: '.env' });
 const app = express();
 // use response time
 app.use(responseTime((req, res, time) => {
-  console.log(req.method, req.url, `${time} ms`);
   ResopnseLog({ url: req.url, time }).save();
 }));
 
