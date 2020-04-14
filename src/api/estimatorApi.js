@@ -64,11 +64,12 @@ const getExtimates = (data) => {
   newData.severeImpact = {};
   if (data.periodType === 'weeks') {
     timeToElapse = data.timeToElapse * 7;
-  } else if (data.periodTypeType === 'months') {
+  } else if (data.periodType === 'months') {
     timeToElapse = data.timeToElapse * 30;
-  } else if (data.periodTypeType === 'years') {
+  } else if (data.periodType === 'years') {
     timeToElapse = data.timeToElapse * 365;
   }
+  console.log(timeToElapse , '**********************');
   // Challenge 1
   const infectionFactor = Math.floor(timeToElapse / 3);
   newData.impact.currentlyInfected = data.reportedCases * 10;
