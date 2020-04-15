@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+
+      const inputData = {
+                          region: {
+                          name: "Africa",
+                          avgAge: 19.7,
+                          avgDailyIncomeInUSD: 5,
+                          avgDailyIncomePopulation: 0.71
+                          },
+                          periodType: "days",
+                          timeToElapse: 58,
+                          reportedCases: 674,
+                          population: 66622705,
+                          totalHospitalBeds: 1380614
+                          }
+
+      // const covid19ImpactEstimator = (data) => getInfected(data);
+
+      //Challenge 1
+      // const getInfected = (data) => {
+      //   const newData = {};
+      //   newData.data = data;
+      //   newData.impact = {}
+      //   newData.severeImpact = {}
+      //   const infectionFactor = Math.floor(data.timeToElapse / 3);
+      //   console.log('Infection Factor : ', infectionFactor)
+      //   newData.impact.currentlyInfected = data.reportedCases * 10;
+      //   console.log('impact; currently infected :', newData.impact.currentlyInfected);
+      //   newData.severeImpact.currentlyInfected = data.reportedCases * 50;
+      //   newData.impact.infectionsByRequestedTime = newData.impact.currentlyInfected * 2 ** infectionFactor;
+        
+      //   newData.severeImpact.infectionsByRequestedTime = newData.severeImpact.currentlyInfected * 2 ** infectionFactor;
+      //   console.log('impact; ', newData.impact);
+      //   console.log('severe impact; currently infected by requested Time:', newData.severeImpact.infectionsByRequestedTime);
+      //   console.log('severe impact; ', newData.severeImpact);
+
+
+      //   return newData;
+      // }
+      const covid19ImpactEstimator = (data) => getExtimates(data);
+
+      //Challenge 1
+      const getExtimates = (data) => {
+        const newData = {};
+        newData.data = data;
+        newData.impact = {}
+        newData.severeImpact = {}
+  const infectionFactor = Math.floor(data.timeToElapse / 3);
+  newData.impact.currentlyInfected = data.reportedCases * 10;
+  newData.severeImpact.currentlyInfected = data.reportedCases * 50;
+  newData.impact.infectionsByRequestedTime = newData.impact.currentlyInfected * 2 ** infectionFactor;
+  newData.severeImpact.infectionsByRequestedTime = newData.severeImpact.currentlyInfected * 2 ** infectionFactor;
+
+  newData.impact.severeCasesByRequestedTime =  Math.floor(newData.impact.infectionsByRequestedTime * 0.15);
+  newData.severeImpact.severeCasesByRequestedTime =  Math.floor(newData.severeImpact.infectionsByRequestedTime * 0.15);
+
+  newData.impact.hospitalBedsByRequestedTime =  Math.floor(0.35 * data.totalHospitalBeds) - newData.impact.severeCasesByRequestedTime;
+  newData.severeImpact.hospitalBedsByRequestedTime =  Math.floor(0.35 * data.totalHospitalBeds) - newData.severeImpact.severeCasesByRequestedTime;
+
+  newData.impact.casesForICUByRequestedTime =  Math.floor(newData.impact.infectionsByRequestedTime * 0.05);
+  newData.severeImpact.casesForICUByRequestedTime =  Math.floor(newData.severeImpact.infectionsByRequestedTime * 0.05);
+
+  newData.impact.casesForVentilatorsByRequestedTime =  Math.floor(newData.impact.infectionsByRequestedTime * 0.02);
+  newData.severeImpact.casesForVentilatorsByRequestedTime =  Math.floor(newData.severeImpact.infectionsByRequestedTime * 0.02);
+
+  newData.impact.dollarsInFlight =  Math.floor(newData.impact.infectionsByRequestedTime * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation * data.timeToElapse);
+  newData.severeImpact.dollarsInFlight =  Math.floor(newData.severeImpact.infectionsByRequestedTime * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD * data.region.avgDailyIncomePopulation * data.timeToElapse);
+        console.log(newData.severeImpact, newData.impact)
+        return newData;
+      }
+
+
+      console.log(covid19ImpactEstimator(inputData));
+    </script>
+  </body>
+</html>
