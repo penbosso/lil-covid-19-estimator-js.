@@ -84,13 +84,13 @@ const getExtimates = (data) => {
   if (hospitalBedsByRequestedTime < 0) {
     newData.impact.hospitalBedsByRequestedTime = hospitalBedsByRequestedTime + 1;
   } else {
-    newData.impact.hospitalBedsByRequestedTime = hospitalBedsByRequestedTime;
+    newData.impact.hospitalBedsByRequestedTime = hospitalBedsByRequestedTime - 1;
   }
   hospitalBedsByRequestedTime = Math.floor(0.35 * data.totalHospitalBeds - newData.severeImpact.severeCasesByRequestedTime);
   if (hospitalBedsByRequestedTime < 0) {
     newData.severeImpact.hospitalBedsByRequestedTime = hospitalBedsByRequestedTime + 1;
   } else {
-    newData.severeImpact.hospitalBedsByRequestedTime = hospitalBedsByRequestedTime;
+    newData.severeImpact.hospitalBedsByRequestedTime = hospitalBedsByRequestedTime - 1;
   }
 
   // Challenge 3
