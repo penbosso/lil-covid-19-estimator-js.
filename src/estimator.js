@@ -27,8 +27,18 @@ const getExtimates = (data) => {
   newData.impact.severeCasesByRequestedTime = Math.floor(newData.impact.infectionsByRequestedTime * 0.15);
   newData.severeImpact.severeCasesByRequestedTime = Math.floor(newData.severeImpact.infectionsByRequestedTime * 0.15);
 
-  newData.impact.hospitalBedsByRequestedTime = Math.floor(0.35 * data.totalHospitalBeds - newData.impact.severeCasesByRequestedTime) + 1;
-  newData.severeImpact.hospitalBedsByRequestedTime = Math.floor(0.35 * data.totalHospitalBeds - newData.severeImpact.severeCasesByRequestedTime) + 1;
+  let hospitalBedsByRequestedTime = Math.floor(0.35 * data.totalHospitalBeds - newData.impact.severeCasesByRequestedTime);
+  if (hospitalBedsByRequestedTime < 0) {
+    newData.impact.hospitalBedsByRequestedTime = hospitalBedsByRequestedTime + 1;
+  } else {
+    newData.impact.hospitalBedsByRequestedTime = hospitalBedsByRequestedTime;
+  }
+  hospitalBedsByRequestedTime = Math.floor(0.35 * data.totalHospitalBeds - newData.severeImpact.severeCasesByRequestedTime);
+  if (hospitalBedsByRequestedTime < 0) {
+    newData.severeImpact.hospitalBedsByRequestedTime = hospitalBedsByRequestedTime + 1;
+  } else {
+    newData.severeImpact.hospitalBedsByRequestedTime = hospitalBedsByRequestedTime;
+  }
 
   // Challenge 3
   newData.impact.casesForICUByRequestedTime = Math.floor(newData.impact.infectionsByRequestedTime * 0.05);
