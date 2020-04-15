@@ -61,6 +61,7 @@ app.post('/api/v1/on-covid-19', estimatorApi.estimatorJsonV1);
 app.post('/api/v1/on-covid-19/json', estimatorApi.estimatorJsonV1);
 app.post('/api/v1/on-covid-19/xml', estimatorApi.estimatorXmlV1);
 app.get('/api/v1/on-covid-19/logs', estimatorApi.estimatorLogsV1);
+app.get('/logs', estimatorApi.estimatorLogsV1);
 
 
 app.use((req, res, next) => {
