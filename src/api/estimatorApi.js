@@ -80,8 +80,8 @@ const getExtimates = (data) => {
   newData.impact.severeCasesByRequestedTime = Math.floor(newData.impact.infectionsByRequestedTime * 0.15);
   newData.severeImpact.severeCasesByRequestedTime = Math.floor(newData.severeImpact.infectionsByRequestedTime * 0.15);
 
-  newData.impact.hospitalBedsByRequestedTime = Math.floor(0.35 * data.totalHospitalBeds) - newData.impact.severeCasesByRequestedTime;
-  newData.severeImpact.hospitalBedsByRequestedTime = Math.floor(0.35 * data.totalHospitalBeds) - newData.severeImpact.severeCasesByRequestedTime;
+  newData.impact.hospitalBedsByRequestedTime = Math.floor(0.35 * data.totalHospitalBeds - newData.impact.severeCasesByRequestedTime) + 1;
+  newData.severeImpact.hospitalBedsByRequestedTime = Math.floor(0.35 * data.totalHospitalBeds - newData.severeImpact.severeCasesByRequestedTime) + 1;
 
   // Challenge 3
   newData.impact.casesForICUByRequestedTime = Math.floor(newData.impact.infectionsByRequestedTime * 0.05);
